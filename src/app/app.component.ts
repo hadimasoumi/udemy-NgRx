@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AuthActions } from './auth/store/auth.actions';
+import { AuthState } from './auth/store/auth.reducers';
 
 @Component({
   selector: 'app-root',
@@ -9,28 +14,15 @@ import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Rout
 export class AppComponent implements OnInit {
   loading = true;
 
-  constructor(private router: Router) {}
+  isLoggedIn$: Observable<boolean>;
+
+  constructor(private router: Router, private store: Store<AuthState>) {}
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
-      switch (true) {
-        case event instanceof NavigationStart: {
-          this.loading = true;
-          break;
-        }
-
-        case event instanceof NavigationEnd:
-        case event instanceof NavigationCancel:
-        case event instanceof NavigationError: {
-          this.loading = false;
-          break;
-        }
-        default: {
-          break;
-        }
-      }
-    });
+    this.isLoggedIn$ = this.store.pipe(map(state => !!state['auth'].user));
   }
 
-  logout() {}
+  logout() {
+    this.store.dispatch(AuthActions.logout());
+  }
 }

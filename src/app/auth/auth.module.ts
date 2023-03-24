@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { StoreModule } from '@ngrx/store';
 import { AuthService } from './auth.service';
-import { authReducer } from './reducers';
+import { authReducer } from './store/auth.reducers';
 
 @NgModule({
   imports: [
