@@ -1,0 +1,21 @@
+{
+  "overrides": [
+    {
+      "files": "*.ts",
+      "options": {
+        "printWidth": 200,
+        "wordWrapColumn": 200,
+        "semi": true,
+        "singleQuote": true,
+        "arrowParens": "avoid"
+      }
+    },
+    {
+      "files": "*.html",
+      "options": {
+        "wordWrapColumn": 80,
+        "singleAttributePerLine": true
+      }
+    }
+  ]
+}
