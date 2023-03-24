@@ -1,6 +1,6 @@
 import { ActionReducer, ActionReducerMap, createFeatureSelector, createReducer, createSelector, MetaReducer, on } from '@ngrx/store';
 import { User } from '../model/user.model';
-import { AuthActions } from '../action-types';
+import { AuthActions } from '../store/auth.actions';
 
 export interface AuthState {
   user: User;
