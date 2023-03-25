@@ -16,6 +16,7 @@ import { AuthModule } from './auth/auth.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 import { environment } from '../environments/environment';
 import { reducers } from './reducers';
 import { AuthGuard } from './auth/auth.guard';
@@ -48,6 +49,7 @@ const routes: Routes = [
     AuthModule.forRoot(),
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot(),
   ],
   bootstrap: [AppComponent],
 })
