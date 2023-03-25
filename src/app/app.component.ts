@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthActions } from './auth/store/auth.actions';
 import { AuthState } from './auth/store/auth.reducers';
+import { AuthSelectors } from './auth/store/auth.selectors';
 
 @Component({
   selector: 'app-root',
@@ -12,14 +13,14 @@ import { AuthState } from './auth/store/auth.reducers';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  loading = true;
+  loading = false;
 
   isLoggedIn$: Observable<boolean>;
 
   constructor(private router: Router, private store: Store<AuthState>) {}
 
   ngOnInit() {
-    this.isLoggedIn$ = this.store.pipe(map(state => !!state['auth'].user));
+    this.isLoggedIn$ = this.store.select(AuthSelectors.isLoggedIn);
   }
 
   logout() {

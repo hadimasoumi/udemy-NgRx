@@ -10,7 +10,7 @@
       </a>
 
       <a
-        *ngIf="isLoggedIn$ | async"
+        *ngIf="!(isLoggedIn$ | async)"
         mat-list-item
         routerLink="/login"
         (click)="(logout)"
@@ -20,7 +20,7 @@
       </a>
 
       <a
-        *ngIf="!(isLoggedIn$ | async)"
+        *ngIf="isLoggedIn$ | async"
         mat-list-item
         (click)="logout()"
       >
