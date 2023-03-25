@@ -7,7 +7,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { noop } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { AppState } from '../../reducers';
+import { AppState } from '../../app.store/app.reducers';
 import { AuthActions } from '../store/auth.actions';
 
 @Component({
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       email: ['test@angular-university.io', [Validators.required]],
-      password: ['test', [Validators.required]],
+      password: ['test2233445566', [Validators.required]],
     });
   }
 

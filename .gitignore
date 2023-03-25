@@ -12,6 +12,7 @@ package-lock.json
 # IDEs and editors
 /.idea
 .project
+.vscode
 .classpath
 .c9/
 *.launch
