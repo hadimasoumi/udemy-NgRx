@@ -19,7 +19,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 import { environment } from '../environments/environment';
-import { reducers } from './app.store/app.reducers';
+import { metaReducers, reducers } from './app.store/app.reducers';
 import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
@@ -49,6 +49,7 @@ const routes: Routes = [
     MatToolbarModule,
     AuthModule.forRoot(),
     StoreModule.forRoot(reducers, {
+      metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
