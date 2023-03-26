@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, first, tap } from 'rxjs/operators';
-import { coursesState } from '../courses.ngrx.store/courses.reducers';
 import { Store } from '@ngrx/store';
 import { CoursesActions } from '../courses.ngrx.store/courses.actions';
+import { CourseState } from '../courses.ngrx.store/courses.reducers';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CoursesResolver implements Resolve<boolean> {
   loading = false;
-  constructor(private store: Store<coursesState>) {}
+  constructor(private store: Store<CourseState>) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
     return this.store.pipe(

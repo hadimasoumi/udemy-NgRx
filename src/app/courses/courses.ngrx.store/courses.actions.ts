@@ -7,7 +7,7 @@ export enum CoursesActionsEnums {
 }
 
 const loadAllCourses = createAction(CoursesActionsEnums.LOAD_ALL_COURSES);
-const allCoursesLoaded = createAction(CoursesActionsEnums.ALL_COURSES_LOADED, props<{ courses: Course[] }>);
+const allCoursesLoaded = createAction(CoursesActionsEnums.ALL_COURSES_LOADED, props<{ courses: Course[] }>());
 
 export const CoursesActions = {
   loadAllCourses,
