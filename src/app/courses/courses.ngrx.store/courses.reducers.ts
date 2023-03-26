@@ -8,6 +8,8 @@ export interface CourseState extends EntityState<Course> {
 }
 
 export const adaptor = createEntityAdapter<Course>();
+export const { selectAll } = adaptor.getSelectors();
+
 const initialCoursesState = adaptor.getInitialState();
 
 export const coursesReducers = createReducer(
