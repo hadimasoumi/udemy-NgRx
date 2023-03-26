@@ -21,12 +21,16 @@ import { StoreRouterConnectingModule, RouterState } from '@ngrx/router-store';
 import { environment } from '../environments/environment';
 import { metaReducers, reducers } from './app.ngrx.store/app.reducers';
 import { AuthGuard } from './auth/auth.guard';
+import { CoursesResolver } from './courses/services/courses.resolver';
 
 const routes: Routes = [
   {
     path: 'courses',
     loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule),
     canActivate: [AuthGuard],
+    resolve: {
+      courses: CoursesResolver,
+    },
   },
   {
     path: '**',
