@@ -18,8 +18,6 @@ import { coursesSelectors } from '../courses.ngrx.store/courses.selectors';
 export class HomeComponent implements OnInit {
   promoTotal$: Observable<number>;
 
-  loading$: Observable<boolean>;
-
   beginnerCourses$: Observable<Course[]>;
 
   advancedCourses$: Observable<Course[]>;
@@ -32,8 +30,6 @@ export class HomeComponent implements OnInit {
 
   reload() {
     const courses$ = this.store.pipe(select(coursesSelectors.selectAllCourses));
-
-    this.loading$ = courses$.pipe(map(courses => !!courses || courses.length === 0));
 
     this.beginnerCourses$ = this.store.pipe(select(coursesSelectors.selectBeginnerCourses));
 
