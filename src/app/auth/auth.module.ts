@@ -9,9 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthService } from './auth.service';
-import { authReducer } from './store/auth.reducers';
+import { authReducer } from './auth.ngrx.store/auth.reducers';
 import { AuthGuard } from './auth.guard';
-import { AuthEffects } from './store/auth.effects';
+import { AuthEffects } from './auth.ngrx.store/auth.effects';
 
 @NgModule({
   imports: [

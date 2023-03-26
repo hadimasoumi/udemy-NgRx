@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { noop } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AppState } from '../../app.ngrx.store/app.reducers';
-import { AuthActions } from '../store/auth.actions';
+import { AuthActions } from '../auth.ngrx.store/auth.actions';
 
 @Component({
   selector: 'login',
