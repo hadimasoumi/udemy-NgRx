@@ -21,5 +21,8 @@ export const coursesReducers = createReducer(
 
   on(CoursesActions.allCoursesLoaded, (state, action) => {
     return adaptor.addMany(action.courses, { ...state, allCoursesLoaded: true });
+  }),
+  on(CoursesActions.courseUpdated, (state, action) => {
+    return adaptor.updateOne(action.update, state);
   })
 );
