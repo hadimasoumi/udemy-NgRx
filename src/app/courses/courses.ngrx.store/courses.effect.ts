@@ -1,19 +1,21 @@
-import { coursesState } from './courses.reducers';
-import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { CoursesActions, CoursesActionsEnums } from './courses.actions';
-import { tap } from 'rxjs/operators';
+import { CoursesActions } from './courses.actions';
+import { concatMap, map } from 'rxjs/operators';
+import { CoursesHttpService } from '../services/courses-http.service';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class CoursesEffects {
   loadAllCourses$ = createEffect(() => {
     return this.actions$.pipe(
+      // filters the Observable of Actions into an observable of loadAllCourses action
       ofType(CoursesActions.loadAllCourses),
-      tap(action => {
-        if (action.type === CoursesActionsEnums.LOAD_ALL_COURSES) {
-        }
+      concatMap(action => this.coursesHttpService.findAllCourses()),
+      map(courses => {
+        return CoursesActions.allCoursesLoaded({ courses });
       })
     );
   });
 
-  constructor(private Store: Store<coursesState>, private actions$: Actions) {}
+  constructor(private actions$: Actions, private coursesHttpService: CoursesHttpService) {}
 }
