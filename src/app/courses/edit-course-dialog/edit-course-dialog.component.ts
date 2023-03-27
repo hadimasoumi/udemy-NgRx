@@ -54,14 +54,19 @@ export class EditCourseDialogComponent {
   }
 
   onSave() {
-    if (this.mode === 'update') {
-      const course: Course = {
-        ...this.course,
-        ...this.form.value,
-      };
+    const course: Course = {
+      ...this.course,
+      ...this.form.value,
+    };
 
-      this.courseEntityService.update(course);
+    if (this.mode === 'update') {
+      this.courseEntityService.update(course).subscribe(upfatedCourse => {
+        this.onClose();
+      });
+    } else {
+      this.courseEntityService.add(course).subscribe(newCourse => {
+        this.onClose();
+      });
     }
-    this.onClose();
   }
 }
