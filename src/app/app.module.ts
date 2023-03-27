@@ -22,6 +22,7 @@ import { environment } from '../environments/environment';
 import { metaReducers, reducers } from './app.ngrx.store/app.reducers';
 import { AuthGuard } from './auth/auth.guard';
 import { CoursesResolver } from './courses/services/courses.resolver';
+import { EntityDataModule } from '@ngrx/data';
 
 const routes: Routes = [
   {
@@ -67,6 +68,7 @@ const routes: Routes = [
       stateKey: 'router',
       routerState: RouterState.Minimal,
     }),
+    EntityDataModule.forRoot({}),
   ],
   bootstrap: [AppComponent],
 })
