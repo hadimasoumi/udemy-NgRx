@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { defaultDialogConfig } from '../shared/default-dialog-config';
 import { EditCourseDialogComponent } from '../edit-course-dialog/edit-course-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { map, shareReplay } from 'rxjs/operators';
-import { CoursesHttpService } from '../services/courses-http.service';
 import { CourseState } from '../courses.ngrx.store/courses.reducers';
 import { select, Store } from '@ngrx/store';
 import { coursesSelectors } from '../courses.ngrx.store/courses.selectors';
+import { CoursesDataService } from '../services/courses-data.service';
+import { map, shareReplay } from 'rxjs/operators';
+import { CourseEntityService } from '../services/course-entity.service';
 
 @Component({
   selector: 'home',
@@ -22,20 +23,18 @@ export class HomeComponent implements OnInit {
 
   advancedCourses$: Observable<Course[]>;
 
-  constructor(private dialog: MatDialog, private coursesHttpService: CoursesHttpService, private store: Store<CourseState>) {}
+  constructor(private dialog: MatDialog, private courseEntityService: CourseEntityService, private store: Store<CourseState>) {}
 
   ngOnInit() {
     this.reload();
   }
 
   reload() {
-    const courses$ = this.store.pipe(select(coursesSelectors.selectAllCourses));
+    this.beginnerCourses$ = this.courseEntityService.entities$.pipe(map(courses => courses.filter(course => course.category === 'BEGINNER')));
 
-    this.beginnerCourses$ = this.store.pipe(select(coursesSelectors.selectBeginnerCourses));
+    this.advancedCourses$ = this.courseEntityService.entities$.pipe(map(courses => courses.filter(course => course.category === 'ADVANCED')));
 
-    this.advancedCourses$ = this.store.pipe(select(coursesSelectors.selectAdvancedCourses));
-
-    this.promoTotal$ = this.store.pipe(select(coursesSelectors.selectPromoTotal));
+    this.promoTotal$ = this.courseEntityService.entities$.pipe(map(courses => courses.filter(course => course.promo).length));
   }
 
   onAddCourse() {
