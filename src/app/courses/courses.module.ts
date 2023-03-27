@@ -26,17 +26,26 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { coursesReducers } from './courses.ngrx.store/courses.reducers';
 import { CoursesEffects } from './courses.ngrx.store/courses.effect';
-import { EntityDefinitionService, EntityMetadataMap } from '@ngrx/data';
+import { EntityDataService, EntityDefinitionService, EntityMetadataMap } from '@ngrx/data';
 import { CourseEntityService } from './services/course-entity.service';
+import { CoursesResolver } from './services/courses.resolver';
+import { LessonEntityService } from './services/lesson-entity.service';
+import { CoursesDataService } from './services/courses-data.service';
 
 export const coursesRoutes: Routes = [
   {
     path: '',
     component: HomeComponent,
+    resolve: {
+      courses: CoursesResolver,
+    },
   },
   {
     path: ':courseUrl',
     component: CourseComponent,
+    resolve: {
+      courses: CoursesResolver,
+    },
   },
 ];
 
@@ -69,10 +78,11 @@ const EntityMetadata: EntityMetadataMap = {
   declarations: [HomeComponent, CoursesCardListComponent, EditCourseDialogComponent, CourseComponent],
   exports: [HomeComponent, CoursesCardListComponent, EditCourseDialogComponent, CourseComponent],
   entryComponents: [EditCourseDialogComponent],
-  providers: [CoursesHttpService, CourseEntityService],
+  providers: [CoursesHttpService, CourseEntityService, LessonEntityService, CoursesResolver, CoursesDataService],
 })
 export class CoursesModule {
-  constructor(private eds: EntityDefinitionService) {
+  constructor(private eds: EntityDefinitionService, private entityDataService: EntityDataService, private coursesDataService: CoursesDataService) {
     eds.registerMetadataMap(EntityMetadata);
+    entityDataService.registerService('Course', coursesDataService);
   }
 }

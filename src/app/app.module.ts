@@ -29,9 +29,9 @@ const routes: Routes = [
     path: 'courses',
     loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule),
     canActivate: [AuthGuard],
-    resolve: {
-      courses: CoursesResolver,
-    },
+    // resolve: {
+    //   courses: CoursesResolver,
+    // },
   },
   {
     path: '**',
