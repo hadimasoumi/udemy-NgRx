@@ -57,6 +57,9 @@ const entityMetadata: EntityMetadataMap = {
       optimisticUpdate: true,
     },
   },
+  Lesson: {
+    sortComparer: compareCourses,
+  },
 };
 
 @NgModule({
